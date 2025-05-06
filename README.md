@@ -57,6 +57,7 @@ direction TB
     
     class Permission {
         - code: String
+        - title: String
         - description: String
     }
     
