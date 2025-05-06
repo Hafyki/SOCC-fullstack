@@ -44,7 +44,7 @@ public class User {
     private String phone;
 
     @Column(nullable = true)
-    private Integer workload; // Só existe para usuários do tipo Docente
+    private Integer workload; // Só existe para usuários do tipo PROFESSOR
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
