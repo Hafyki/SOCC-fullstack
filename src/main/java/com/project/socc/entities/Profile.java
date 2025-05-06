@@ -1,21 +1,14 @@
 package com.project.socc.entities;
 
-import jakarta.persistence.*;
+
+import com.project.socc.enums.ProfileRole;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "profile")
-
 public class Profile {
 
-    @Id
-    @GeneratedValue
     private UUID id;
-
-    @Column(nullable = false, unique = true)
-    private String name;
+    private ProfileRole role;
     private String description;
-
-
+    private Boolean protectedProfile;
 }

@@ -10,6 +10,7 @@ public class User {
     private String username;
     private String name;
     private String email;
-    private UserStatus status;
+    private String phone;
     private Integer workLoad;
+    private UserStatus status;
 }
