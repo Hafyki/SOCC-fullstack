@@ -27,7 +27,7 @@ direction TB
         class ProfileRole {
             + ADMINISTRATOR
             + COURSE_COORDINATOR
-            + ASSISTANT_COORDINATOR
+            + ASSISTANT_COURSE_COORDINATOR
             + PROFESSOR
             + TECHNICAL_PEDAGOGICAL_STAFF
             + STUDENT
