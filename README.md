@@ -39,19 +39,19 @@ direction TB
 
     class User {
 	    - id: UUID
-	    - userName: String
+	    - username: String
 	    - name: String
 	    - email: String
 	    - phone: String
-	    - workLoad: Integer
+	    - workload: Integer
 	    - status: UserStatus
 	    - profiles: ArrayList~Profile~
     }
     class Profile {
-	    - id: String
-	    - name: ProfileRole
+	    - id: UUID
+	    - role: ProfileRole
 	    - description: String
-	    - protectedProfile: Boolean
+	    - protectedProfile: boolean
 	    - permissions: ArrayList~Permission~
     }
     
@@ -64,6 +64,6 @@ direction TB
 	<<enumeration>> UserStatus
 	<<enumeration>> ProfileRole
 
-    User --> "1..*" Profile : has
-    Profile --> "1..*" Permission : contains
+    User "*" --> "*" Profile : has
+    Profile "*" --> "*" Permission : contains
 ```
