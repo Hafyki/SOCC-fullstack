@@ -27,15 +27,15 @@ public class User {
     @GeneratedValue
     private UUID id;
 
-    @Size(min = 5, max = 20)
+    @Size(min = 5, max = 20, message = "Username must be between 5 and 20 characters")
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     @Column(nullable = false)
     private String name;
 
-    @Email
+    @Email(message = "Email should be valid")
     @Column(nullable = false, unique = true)
     private String email;
 
