@@ -43,4 +43,12 @@ public class Profile {
             inverseJoinColumns = @JoinColumn(name = "permission_code")
     )
     private List<Permission> permissions = new ArrayList<>();
+
+    public void addPermission(Permission permission) {
+        this.permissions.add(permission);
+    }
+
+    public void removePermission(Permission permission) {
+        this.permissions.remove(permission);
+    }
 }

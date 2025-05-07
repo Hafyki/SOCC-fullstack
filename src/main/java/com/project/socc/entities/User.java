@@ -57,4 +57,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "profile_id")
     )
     private List<Profile> profiles = new ArrayList<>();
+
+    public void addProfile(Profile profile) {
+        this.profiles.add(profile);
+    }
+
+    public void removeProfile(Profile profile) {
+        this.profiles.remove(profile);
+    }
 }
