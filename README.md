@@ -1,5 +1,5 @@
 # Sistema de Oferta de Componentes Curriculares (SOCC)
-Repositório destinado para o Trabalho Incremental do Grupo 5 da disciplina de Desenvolvimento FullStack.
+Repositório destinado ao Trabalho Incremental do Grupo 5 da disciplina de Desenvolvimento FullStack.
 
 ## 📌 Membros
 * Gustavo Neves Piedade Louzada
@@ -69,3 +69,12 @@ direction TB
     User "*" --> "*" Profile : has
     Profile "*" --> "*" Permission : contains
 ```
+
+## 📌 Rotas
+Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
+* **POST /users:** Criar um novo usuário
+* **GET /users:** Resgatar todos os dados de todos os usuários
+* **GET /users/id:** Resgatar os dados de um usuário específico
+* **PATCH /users/id:** Vai atualizar parcialmente os dados de um usuário, mais especificamente os perfis atrelados a ele e o seu status
+
+> Os grupos responsáveis pela manutenção do perfil (Grupo 7) e pelo gerenciamento de permissões (Grupo 8) serão encarregados de implementar as rotas e operações CRUD das entidades relacionadas a Perfil e Permissões. O nosso foco será direcionado especificamente aos itens do nosso caso de uso principal: o Usuário.
