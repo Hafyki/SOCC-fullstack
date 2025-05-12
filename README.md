@@ -9,7 +9,7 @@ Repositório destinado para o Trabalho Incremental do Grupo 5 da disciplina de D
 * Maria Eduarda de Campos Ramos
 
 ## 📌 Caso de Uso: Manter Usuário
-* Listar dados do usuários (FP)
+* Listar dados dos usuários (FP)
 * Atribuir perfil ao usuário (FA01)
 * Alterar status do usuário (FA02)
 
