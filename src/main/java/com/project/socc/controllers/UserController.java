@@ -22,7 +22,7 @@ public class UserController {
     public String getAllUsers() { return "GET Users returned"; }
 
     //GET ONE
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public String getUser(@PathVariable int id) { return "GET User with id:" + id +" returned"; }
 
     //PATCH
