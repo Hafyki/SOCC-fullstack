@@ -19,13 +19,19 @@ public class UserController {
 
     //GET ALL
     @GetMapping
-    public String getAllUsers() { return "GET Users returned"; }
+    public String getAllUsers() {
+        return "GET Users returned";
+    }
 
     //GET ONE
     @GetMapping("/{id}")
-    public String getUser(@PathVariable int id) { return "GET User with id:" + id +" returned"; }
+    public String getUser(@PathVariable int id) {
+        return "GET User with id:" + id + " returned";
+    }
 
     //PATCH
     @PatchMapping("/{id}")
-    public String patchUser(@PathVariable int id) { return "User with id: " + id + " patched"; }
+    public String patchUser(@PathVariable int id) {
+        return "User with id: " + id + " patched";
+    }
 }
