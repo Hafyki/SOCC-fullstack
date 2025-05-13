@@ -27,7 +27,7 @@ public class DataSeeder {
             // Cria permissões
             Permission perm1 = new Permission("TEACH_CLASSES", "Ministrar turmas", "Essa permissão é para ministrar turmas");
             Permission perm2 = new Permission("USER_VIEW", "Visualizar usuários", "Essa é permissão é para visualizar todos os usuários do sistema");
-            Permission perm3 = new Permission("ENROLL_CLASS", "Matricular-se em uma turma", "Essa permissão é para se matricular se em uma turma");
+            Permission perm3 = new Permission("ENROLL_CLASS", "Matricular-se em uma turma", "Essa permissão é para se matricular em uma turma");
             Permission perm4 = new Permission("ALTER_STATUS_USER", "Alterar status do usuário", "Essa permissão é para alterar o status dos usuários");
 
             permissionRepository.saveAll(List.of(perm1, perm2, perm3, perm4));
