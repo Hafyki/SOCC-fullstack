@@ -70,6 +70,49 @@ direction TB
     Profile "*" --> "*" Permission : contains
 ```
 
+## 📌 Diagrama do Banco de Dados
+```mermaid
+erDiagram
+    PERMISSION {
+        varchar(255) code PK
+        varchar(255) title
+        varchar(255) description
+    }
+
+    PROFILE_PERMISSION {
+        uuid profile_id FK
+        varchar(255) permission_code FK
+    }
+
+    PROFILE {
+        uuid id PK
+        varchar(255) description
+        bool protected_profile
+        varchar(255) role
+    }
+
+    USER_PROFILE {
+        uuid user_id FK
+        uuid profile_id FK
+    }
+
+    USER {
+        uuid id PK
+        varchar(255) email
+        varchar(100) name
+        varchar(11) phone
+        varchar(255) status
+        varchar(20) username
+        int4 workload
+    }
+
+    PERMISSION ||--|{ PROFILE_PERMISSION : contained
+    PROFILE ||--|{ PROFILE_PERMISSION : contains
+    PROFILE ||--|{ USER_PROFILE : contained
+    USER ||--|{ USER_PROFILE : contained
+```
+
+
 ## 📌 Rotas
 Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
 * **POST /users:** Criar um novo usuário
