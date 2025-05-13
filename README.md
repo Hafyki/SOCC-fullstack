@@ -108,10 +108,9 @@ erDiagram
 
     PERMISSION ||--|{ PROFILE_PERMISSION : contained
     PROFILE ||--|{ PROFILE_PERMISSION : contains
-    PROFILE ||--|{ USER_PROFILE : contained
-    USER ||--|{ USER_PROFILE : contained
+    PROFILE ||--|{ USER_PROFILE : has
+    USER ||--|{ USER_PROFILE : has
 ```
-
 
 ## 📌 Rotas
 Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
