@@ -20,4 +20,6 @@ public class UserService {
     public Page<User> getAllUsersPaged(Pageable pageable){
         return userRepository.findAll(pageable);
     }
+
+
 }
