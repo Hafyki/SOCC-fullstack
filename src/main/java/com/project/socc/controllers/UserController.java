@@ -64,8 +64,11 @@ public class UserController {
 
     //GET ONE
     @GetMapping("/{id}")
-    public String getUser(@PathVariable UUID id) {
-        return "GET User with id:" + id + " returned";
+    public ResponseEntity<?> getUser(@PathVariable UUID id) {
+        return userService.getUserById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(404)
+                        .body((User) Map.of("Erro", "Usuário com ID " + id + " não encontrado")));
     }
 
     //PATCH
