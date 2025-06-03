@@ -1,7 +1,7 @@
 package com.project.socc.controllers;
 
+import com.project.socc.dtos.UserDTO;
 import com.project.socc.entities.User;
-import com.project.socc.exceptions.UserNotFoundException;
 import com.project.socc.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.lang.reflect.Field;
 import java.net.URI;
-import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -34,20 +27,20 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> postUser(@Valid @RequestBody User user) {
+    public ResponseEntity<UserDTO> postUser(@Valid @RequestBody UserDTO userDTO) {
 
         // Retorna o objeto já salvo no banco de dados
-        User savedUser = userService.addUser(user);
+        User user = userService.addUser(userDTO.toEntity());
 
         // Constrói a URI (endereço) do recurso recém-criado
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest() // Pega a URL da requisição atual (http://localhost:8080/users)
                 .path("/{id}") // Adiciona o path (http://localhost:8080/users/{id})
-                .buildAndExpand(savedUser.getId()) // Substitui o {id} pelo ID do novo usuário
+                .buildAndExpand(user.getId()) // Substitui o {id} pelo ID do novo usuário
                 .toUri(); // Converte em um objeto URI
 
         // Retorna status 201 Created com o Location no header apontando para o endereço do novo recurso e o usuário criado
-        return ResponseEntity.created(uri).body(savedUser);
+        return ResponseEntity.created(uri).body(new UserDTO(user));
     }
 
     //GET ALL
