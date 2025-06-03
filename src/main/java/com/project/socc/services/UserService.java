@@ -1,7 +1,6 @@
 package com.project.socc.services;
 
 import com.project.socc.entities.User;
-import com.project.socc.exceptions.UserNotFoundException;
 import com.project.socc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

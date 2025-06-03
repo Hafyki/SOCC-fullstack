@@ -1,7 +1,6 @@
 package com.project.socc.controllers;
 
 import com.project.socc.entities.User;
-import com.project.socc.exceptions.UserNotFoundException;
 import com.project.socc.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.Map;
 import java.util.UUID;
