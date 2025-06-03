@@ -24,6 +24,6 @@ public class UserService {
     }
 
     public Optional<User> getUserById(UUID id) {
-        return userRepository.findById(id);
+        return userRepository.findById(id); //oi
     }
 }
