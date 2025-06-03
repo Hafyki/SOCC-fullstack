@@ -1,30 +1,47 @@
 package com.project.socc.controllers;
 
 import com.project.socc.entities.User;
+import com.project.socc.exceptions.UserNotFoundException;
+import com.project.socc.repositories.UserRepository;
 import com.project.socc.services.UserService;
+import com.project.socc.util.UserModelAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final UserModelAssembler userModelAssembler;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository, UserModelAssembler userModelAssembler) {
         this.userService = userService;
+        this.userRepository = userRepository;
+        this.userModelAssembler = userModelAssembler;
     }
 
 
     //POST
     @PostMapping
     public String postUser() {
+        //EntityModel<User> entityModel = userModelAssembler.toModel(user);
+        //return ResponseEntity
+        //                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+        //                .body(entityModel);
         return "POST User created";
     }
 
@@ -47,13 +64,29 @@ public class UserController {
 
     //GET ONE
     @GetMapping("/{id}")
-    public String getUser(@PathVariable int id) {
+    public String getUser(@PathVariable UUID id) {
         return "GET User with id:" + id + " returned";
     }
 
     //PATCH
     @PatchMapping("/{id}")
-    public String patchUser(@PathVariable int id) {
-        return "User with id: " + id + " patched";
+    public ResponseEntity<?> patchUser(@PathVariable UUID id, @RequestBody Map<String, Object> fields) {
+
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        merge(fields, user);
+        user = userRepository.save(user);
+
+        EntityModel<User> entityModel = userModelAssembler.toModel(user);
+
+        return ResponseEntity.ok(entityModel);
+    }
+
+    public void merge(Map<String, Object> fields, User user) {
+        fields.forEach((propertyName, propertyValue) -> {
+            Field field = ReflectionUtils.findField(User.class, propertyName);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, user, propertyValue);
+        });
+
     }
 }
