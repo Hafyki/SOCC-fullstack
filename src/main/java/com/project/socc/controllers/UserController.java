@@ -1,6 +1,6 @@
 package com.project.socc.controllers;
 
-import com.project.socc.dtos.UserDTO;
+import com.project.socc.dtos.UserRequestDTO;
 import com.project.socc.entities.User;
 import com.project.socc.services.UserService;
 import jakarta.validation.Valid;
@@ -27,10 +27,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> postUser(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<User> postUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
 
         // Retorna o objeto já salvo no banco de dados
-        User user = userService.addUser(userDTO.toEntity());
+        User user = userService.addUser(userRequestDTO.toEntity());
 
         // Constrói a URI (endereço) do recurso recém-criado
         URI uri = ServletUriComponentsBuilder
@@ -40,7 +40,7 @@ public class UserController {
                 .toUri(); // Converte em um objeto URI
 
         // Retorna status 201 Created com o Location no header apontando para o endereço do novo recurso e o usuário criado
-        return ResponseEntity.created(uri).body(new UserDTO(user));
+        return ResponseEntity.created(uri).body(user);
     }
 
     //GET ALL

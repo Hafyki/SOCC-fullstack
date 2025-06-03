@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserDTO {
+public class UserRequestDTO {
 
     @NotBlank
     @Size(min = 5, max = 20, message = "Username must be between 5 and 20 characters")
@@ -32,7 +32,7 @@ public class UserDTO {
     @Size(min = 11, max = 11, message = "Phone must have 11 characters")
     private String phone;
 
-    public UserDTO(User user) {
+    public UserRequestDTO(User user) {
         this.username = user.getUsername();
         this.name = user.getName();
         this.email = user.getEmail();
