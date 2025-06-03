@@ -76,25 +76,13 @@ public class UserController {
 //                        .body((User) Map.of("Erro", "Usuário com ID " + id + " não encontrado")));
 //    }
 //
-//    //PATCH
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<?> patchUser(@PathVariable UUID id, @RequestBody Map<String, Object> fields) {
-//
-//        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-//        merge(fields, user);
-//        user = userRepository.save(user);
-//
-//        EntityModel<User> entityModel = userModelAssembler.toModel(user);
-//
-//        return ResponseEntity.ok(entityModel);
-//    }
-//
-//    public void merge(Map<String, Object> fields, User user) {
-//        fields.forEach((propertyName, propertyValue) -> {
-//            Field field = ReflectionUtils.findField(User.class, propertyName);
-//            field.setAccessible(true);
-//            ReflectionUtils.setField(field, user, propertyValue);
-//        });
-//
-//    }
+    //PATCH
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> patchUser(@PathVariable UUID id, @RequestBody Map<String, Object> fields) {
+
+        User updatedUser = userService.updateUser(id, fields);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+
 }

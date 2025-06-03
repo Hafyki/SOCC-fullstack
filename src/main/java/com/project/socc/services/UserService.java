@@ -1,12 +1,16 @@
 package com.project.socc.services;
 
 import com.project.socc.entities.User;
+import com.project.socc.exceptions.UserNotFoundException;
 import com.project.socc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,5 +34,20 @@ public class UserService {
 
     public Optional<User> getUserById(UUID id) {
         return userRepository.findById(id);
+    }
+
+    public User updateUser(UUID id, Map<String, Object> fields) {
+        User user = userRepository.findById(id).get();
+        merge(fields, user);
+        return userRepository.save(user);
+    }
+
+    public void merge(Map<String, Object> fields, User user) {
+        fields.forEach((propertyName, propertyValue) -> {
+            Field field = ReflectionUtils.findField(User.class, propertyName);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, user, propertyValue);
+        });
+
     }
 }
