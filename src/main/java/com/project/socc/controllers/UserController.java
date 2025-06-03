@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -49,11 +47,8 @@ public class UserController {
 
     //GET ONE
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable UUID id) {
-        return userService.getUserById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(404)
-                        .body((User) Map.of("Erro", "Usuário com ID " + id + " não encontrado")));
+    public String getUser(@PathVariable int id) {
+        return "GET User with id:" + id + " returned";
     }
 
     //PATCH
