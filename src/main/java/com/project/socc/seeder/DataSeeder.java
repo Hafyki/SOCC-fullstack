@@ -36,11 +36,13 @@ public class DataSeeder {
             Permission academicRecords = new Permission("ACADEMIC_RECORDS", "Registros acadêmicos", "Permite gerenciar registros e documentos acadêmicos");
             Permission systemAdmin = new Permission("SYSTEM_ADMIN", "Administração do sistema", "Acesso total ao sistema");
 
-            permissionRepository.saveAll(List.of(
-                    teachClasses, userView, userCreate, userEdit, userDelete, enrollClass,
-                    alterStatus, manageCourses, viewCourses, manageGrades, viewGrades,
-                    viewReports, academicRecords, systemAdmin
-            ));
+            if (permissionRepository.count() == 0) {
+                permissionRepository.saveAll(List.of(
+                        teachClasses, userView, userCreate, userEdit, userDelete, enrollClass,
+                        alterStatus, manageCourses, viewCourses, manageGrades, viewGrades,
+                        viewReports, academicRecords, systemAdmin
+                ));
+            }
 
             // Cria perfis com permissões que fazem sentido
             Profile administrator = Profile.builder()
@@ -122,10 +124,12 @@ public class DataSeeder {
                     .permissions(List.of(viewReports, viewCourses))
                     .build();
 
-            profileRepository.saveAll(List.of(
-                    administrator, director, deputyDirector, courseCoordinator, assistantCoordinator,
-                    professor, academicSecretary, technicalStaff, student, pedagogicalCurator, boardMember
-            ));
+            if (profileRepository.count() == 0) {
+                profileRepository.saveAll(List.of(
+                        administrator, director, deputyDirector, courseCoordinator, assistantCoordinator,
+                        professor, academicSecretary, technicalStaff, student, pedagogicalCurator, boardMember
+                ));
+            }
         };
     }
 }
