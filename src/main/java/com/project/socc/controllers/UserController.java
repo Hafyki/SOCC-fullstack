@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,9 +45,8 @@ public class UserController {
         return ResponseEntity.created(uri).body(user);
     }
 
-    //GET ALL
     @GetMapping
-    public ResponseEntity<Page<User>>    getAllUsers(
+    public ResponseEntity<Page<User>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
@@ -63,7 +61,6 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsersPaged(pageable));
     }
 
-    //GET ONE
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable UUID id) {
         return userService.getUserById(id)
@@ -72,14 +69,12 @@ public class UserController {
                         .body((User) Map.of("Erro", "Usuário com ID " + id + " não encontrado")));
     }
 
-    //PATCH
     @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> patchUser(@PathVariable UUID id, @RequestBody Map<String, Object> fields) {
-
+    public ResponseEntity<User> patchUser(
+            @PathVariable UUID id,
+            @RequestBody Map<String, Object> fields
+    ) {
         User updatedUser = userService.updateUser(id, fields);
         return ResponseEntity.ok(updatedUser);
     }
-
-
 }
