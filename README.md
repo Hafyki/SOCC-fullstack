@@ -50,7 +50,7 @@ direction TB
 	    - profiles: ArrayList~Profile~
     }
     class Profile {
-	    - id: UUID
+	    - id: Long
 	    - role: ProfileRole
 	    - description: String
 	    - protectedProfile: boolean
@@ -80,12 +80,12 @@ erDiagram
     }
 
     PROFILE_PERMISSION {
-        uuid profile_id FK
+        int8 profile_id FK
         varchar(255) permission_code FK
     }
 
     PROFILE {
-        uuid id PK
+        int8 id PK
         varchar(255) description
         bool protected_profile
         varchar(255) role
@@ -93,7 +93,7 @@ erDiagram
 
     USER_PROFILE {
         uuid user_id FK
-        uuid profile_id FK
+        int8 profile_id FK
     }
 
     USER {
@@ -115,7 +115,7 @@ erDiagram
 ## 📌 Rotas
 Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
 * **POST /users:** Criar um novo usuário
-* **GET /users:** Resgatar os dados de todos os usuários
+* **GET /users:** Resgatar os dados de todos os usuários (com paginação)
 * **GET /users/{id}:** Resgatar os dados de um usuário específico
 * **PATCH /users/{id}:** Vai atualizar parcialmente os dados de um usuário, em particular os perfis que ele possui no sistema e o seu status
 
