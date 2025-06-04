@@ -58,15 +58,13 @@ public class UserController {
 
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        return ResponseEntity.ok(userService.getAllUsersPaged(pageable));
+        return ResponseEntity.ok(userService.findUsersPaged(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable UUID id) {
-        return userService.getUserById(id)
-                .map(user -> ResponseEntity.ok(user))
-                .orElse(ResponseEntity.status(404)
-                        .body((User) Map.of("Erro", "Usuário com ID " + id + " não encontrado")));
+    public ResponseEntity<User> getUser(@PathVariable UUID id) {
+        User user = userService.findUserById(id);
+        return ResponseEntity.ok(user);
     }
 
     @PatchMapping("/{id}")
