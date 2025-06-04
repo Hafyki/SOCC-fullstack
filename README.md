@@ -123,4 +123,6 @@ Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
 
 ## 📌 Documentação API (Back-End)
 
-Para mais detalhes sobre os endpoints da API — incluindo exemplos de parâmetros, RequestBody e ResponseBody — consulte a [documentação completa aqui](https://www.postman.com/ultralight-4892/projeto-final-de-desenvolvimento-fullstack/overview).
+Para mais detalhes sobre os endpoints da API — incluindo exemplos de parâmetros, RequestBody e ResponseBody — consulte a [documentação completa aqui](https://www.postman.com/ultralight-4892/projeto-final-de-desenvolvimento-fullstack/overview). 
+
+Também é possível visualizar e testar os endpoints diretamente através do Swagger da API. Basta executar a aplicação e acessar: ```http://localhost:8080/swagger-ui/index.html```.
