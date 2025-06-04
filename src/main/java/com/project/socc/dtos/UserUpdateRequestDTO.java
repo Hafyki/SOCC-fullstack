@@ -8,6 +8,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Somente os dados desse DTO poderão ser atualizados em um usuário (o ID não pode mudar)
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,6 +30,6 @@ public class UserUpdateRequestDTO {
     private String phone;
 
     private Integer workload;
-    private String status;
-    private List<Long> profileIds;
+    private String status; // O status vem como uma string no JSON
+    private List<Long> profileIds; // Para atribuir perfis ao usuário, basta o ID desses perfis
 }

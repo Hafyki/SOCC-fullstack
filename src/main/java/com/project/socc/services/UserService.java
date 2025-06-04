@@ -41,46 +41,56 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
-    public User updateUser(UUID id, UserUpdateRequestDTO userUpdateRequestDTO) {
+    public User updateUser(UUID id, UserUpdateRequestDTO userRequest) {
+
+        // Antes de tudo, verifica se existe usuário com tal ID
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
 
-        if (userUpdateRequestDTO.getUsername() != null) {
-            user.setUsername(userUpdateRequestDTO.getUsername());
+        // Só vai atualizar os campos que aparecem no DTO
+        if (userRequest.getUsername() != null) {
+            user.setUsername(userRequest.getUsername());
         }
 
-        if (userUpdateRequestDTO.getName() != null) {
-            user.setName(userUpdateRequestDTO.getName());
+        if (userRequest.getName() != null) {
+            user.setName(userRequest.getName());
         }
 
-        if (userUpdateRequestDTO.getEmail() != null) {
-            user.setEmail(userUpdateRequestDTO.getEmail());
+        if (userRequest.getEmail() != null) {
+            user.setEmail(userRequest.getEmail());
         }
 
-        if (userUpdateRequestDTO.getPhone() != null) {
-            user.setPhone(userUpdateRequestDTO.getPhone());
+        if (userRequest.getPhone() != null) {
+            user.setPhone(userRequest.getPhone());
         }
 
-        if (userUpdateRequestDTO.getWorkload() != null) {
-            user.setWorkload(userUpdateRequestDTO.getWorkload());
+        if (userRequest.getWorkload() != null) {
+            user.setWorkload(userRequest.getWorkload());
         }
 
-        if (userUpdateRequestDTO.getStatus() != null) {
-            user.setStatus(UserStatus.valueOf(userUpdateRequestDTO.getStatus()));
+        if (userRequest.getStatus() != null) {
+            user.setStatus(UserStatus.valueOf(userRequest.getStatus()));
         }
 
-        if (userUpdateRequestDTO.getProfileIds() != null) {
-            updateUserProfiles(user, userUpdateRequestDTO.getProfileIds());
+        if (userRequest.getProfileIds() != null) {
+            updateUserProfiles(user, userRequest.getProfileIds());
         }
 
+        // Salva as alterações feitas no usuário
         return userRepository.save(user);
     }
 
+    /**
+     * Método auxiliar para adicionar e remover perfis associados a um usuário (atualizar os perfis associados a um usuário)
+     * Pré-requisito: O front-end deve enviar a lista completa de perfis marcados
+     */
+
     private void updateUserProfiles(User user, List<Long> profileIds) {
 
-        // Limpa a lista atual
+        // Limpa a lista atual de perfis desse usuário para garantir que apenas os perfis informados na requisição permaneçam vinculados ao usuário
         user.getProfiles().clear();
 
+        // Para cada perfil da lista, busca o perfil no banco pelo seu ID e adiciona na lista de perfis do usuário
         profileIds.forEach(profileId -> {
             Profile profile = profileService.findProfileById(profileId);
             user.addProfile(profile);

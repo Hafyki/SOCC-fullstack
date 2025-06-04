@@ -1,6 +1,6 @@
 package com.project.socc.controllers;
 
-import com.project.socc.dtos.UserRequestDTO;
+import com.project.socc.dtos.UserCreateRequestDTO;
 import com.project.socc.dtos.UserUpdateRequestDTO;
 import com.project.socc.entities.User;
 import com.project.socc.services.UserService;
@@ -28,11 +28,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public ResponseEntity<User> postUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
+    /**
+     * POST
+     */
 
-        // Retorna o objeto já salvo no banco de dados
-        User user = userService.addUser(userRequestDTO.toEntity());
+    @PostMapping
+    public ResponseEntity<User> postUser(@Valid @RequestBody UserCreateRequestDTO userRequest) {
+
+        // Antes de salvar no BD, converte o DTO em uma entidade. Depois que salvar no BD, retorna o usuário que foi salvo
+        User user = userService.addUser(userRequest.toEntity());
 
         // Constrói a URI (endereço) do recurso recém-criado
         URI uri = ServletUriComponentsBuilder
@@ -45,13 +49,19 @@ public class UserController {
         return ResponseEntity.created(uri).body(user);
     }
 
+    /**
+     * GET ALL (com paginação)
+     */
+
     @GetMapping
     public ResponseEntity<Page<User>> getAllUsers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "name") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDir
+            @RequestParam(defaultValue = "0") int page, // Qual página de dados será retornada (depende do size)
+            @RequestParam(defaultValue = "10") int size, // Número de itens por página
+            @RequestParam(defaultValue = "name") String sortBy, // Campo pelo qual os resultados serão ordenados
+            @RequestParam(defaultValue = "asc") String sortDir // Define a direção da ordenação
     ) {
+
+        // Objeto Sort criado com base na direção e campo de ordenação
         Sort sort = sortDir.equalsIgnoreCase("asc") ?
                 Sort.by(sortBy).ascending() :
                 Sort.by(sortBy).descending();
@@ -61,18 +71,26 @@ public class UserController {
         return ResponseEntity.ok(userService.findUsersPaged(pageable));
     }
 
+    /**
+     * GET ONE
+     */
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable UUID id) {
         User user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * PATCH
+     */
+
     @PatchMapping("/{id}")
     public ResponseEntity<User> patchUser(
             @PathVariable UUID id,
-            @Valid @RequestBody UserUpdateRequestDTO userUpdateRequestDTO
-            ) {
-        User updatedUser = userService.updateUser(id, userUpdateRequestDTO);
+            @Valid @RequestBody UserUpdateRequestDTO userRequest
+    ) {
+        User updatedUser = userService.updateUser(id, userRequest);
         return ResponseEntity.ok(updatedUser);
     }
 }
