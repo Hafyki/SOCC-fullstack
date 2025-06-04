@@ -76,7 +76,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    private void updateUserProfiles(User user, List<UUID> profileIds) {
+    private void updateUserProfiles(User user, List<Long> profileIds) {
 
         // Limpa a lista atual
         user.getProfiles().clear();

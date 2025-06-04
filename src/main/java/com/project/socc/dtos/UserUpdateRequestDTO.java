@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,5 +27,5 @@ public class UserUpdateRequestDTO {
 
     private Integer workload;
     private String status;
-    private List<UUID> profileIds;
+    private List<Long> profileIds;
 }

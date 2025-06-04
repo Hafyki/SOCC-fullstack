@@ -6,7 +6,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 
 @Service
 public class ProfileService {
@@ -18,7 +17,7 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
-    public Profile findProfileById(UUID id) {
+    public Profile findProfileById(Long id) {
         return profileRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Profile with id: " + id + " not found"));
     }

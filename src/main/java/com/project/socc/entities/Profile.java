@@ -7,7 +7,6 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Um perfil pode ter várias permissões (ex: um "professor" pode manifestar interesse em um núcleo e ministrar turmas),
@@ -23,8 +22,8 @@ import java.util.UUID;
 public class Profile {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
