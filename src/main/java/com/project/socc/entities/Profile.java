@@ -36,7 +36,7 @@ public class Profile {
     @Column(nullable = false)
     private boolean protectedProfile;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "profile_permission",
             joinColumns = @JoinColumn(name = "profile_id"),

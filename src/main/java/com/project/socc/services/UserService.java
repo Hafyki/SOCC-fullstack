@@ -1,5 +1,6 @@
 package com.project.socc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.socc.entities.User;
 import com.project.socc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,13 @@ public class UserService {
     }
 
     public void merge(Map<String, Object> fields, User user) {
+        ObjectMapper mapper = new ObjectMapper();
+        User mappedUser = mapper.convertValue(fields, User.class); //Utilizado para que o Map consiga identificar os campos de atributos que são outras entidades(Profile e Permission) como objetos e não linkedHashMaps
         fields.forEach((propertyName, propertyValue) -> {
             Field field = ReflectionUtils.findField(User.class, propertyName);
             field.setAccessible(true);
-            ReflectionUtils.setField(field, user, propertyValue);
+            Object newPropertyValue = ReflectionUtils.getField(field, mappedUser);
+            ReflectionUtils.setField(field, user, newPropertyValue);
         });
 
     }

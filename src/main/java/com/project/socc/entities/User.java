@@ -50,7 +50,7 @@ public class User {
     @Column(nullable = false)
     private UserStatus status;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_profile",
             joinColumns = @JoinColumn(name = "user_id"),
