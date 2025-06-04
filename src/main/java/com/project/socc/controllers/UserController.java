@@ -1,6 +1,7 @@
 package com.project.socc.controllers;
 
 import com.project.socc.dtos.UserRequestDTO;
+import com.project.socc.dtos.UserUpdateRequestDTO;
 import com.project.socc.entities.User;
 import com.project.socc.services.UserService;
 import jakarta.validation.Valid;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -70,9 +70,9 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<User> patchUser(
             @PathVariable UUID id,
-            @RequestBody Map<String, Object> fields
-    ) {
-        User updatedUser = userService.updateUser(id, fields);
+            @Valid @RequestBody UserUpdateRequestDTO userUpdateRequestDTO
+            ) {
+        User updatedUser = userService.updateUser(id, userUpdateRequestDTO);
         return ResponseEntity.ok(updatedUser);
     }
 }
