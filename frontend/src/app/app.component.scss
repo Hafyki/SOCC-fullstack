@@ -17,4 +17,17 @@
   color: #666;
   line-height: 1.6;
   margin-bottom: 10px;
+}
+
+.main-layout {
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+.content-area {
+  margin-left: 220px;
+  padding: 2rem 3rem;
+  width: 100%;
+  background: #e5e5e5;
+  min-height: calc(100vh - 64px);
 } 

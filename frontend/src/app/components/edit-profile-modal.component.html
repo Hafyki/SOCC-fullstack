@@ -1,0 +1,22 @@
+<div class="modal-backdrop">
+  <div class="modal-content">
+    <h3>Atribuir Perfis</h3>
+    <div class="form-group">
+      <label for="userName">Nome</label>
+      <input id="userName" type="text" [value]="userName" readonly />
+    </div>
+    <div class="form-group">
+      <label>Perfis</label>
+      <div class="profile-list">
+        <div *ngFor="let option of profileOptions" class="profile-option">
+          <input type="checkbox" [id]="option.value" [checked]="selectedProfiles.includes(option.value)" (change)="onToggleProfile(option.value)" />
+          <label [for]="option.value">{{ option.label }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="cancel-btn" (click)="onCancel()">CANCELAR</button>
+      <button class="save-btn" (click)="onSave()">SALVAR</button>
+    </div>
+  </div>
+</div> 

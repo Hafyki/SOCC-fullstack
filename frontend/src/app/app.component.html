@@ -1,15 +1,7 @@
-<div class="container">
-  <div class="hello-world">
-    <h1>{{ message }}</h1>
-    <p>Bem-vindo ao {{ title }}</p>
-    <p>Horário atual: {{ currentTime | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+<app-top-bar></app-top-bar>
+<div class="main-layout">
+  <app-side-menu></app-side-menu>
+  <div class="content-area">
+    <app-user-table></app-user-table>
   </div>
-  
-  <div class="info-section">
-    <h2>Informações do Projeto</h2>
-    <p>Este é um projeto Angular preparado para integração com o backend Spring Boot.</p>
-    <p>Estrutura organizada seguindo as melhores práticas do Angular.</p>
-  </div>
-  
-  <router-outlet></router-outlet>
 </div> 

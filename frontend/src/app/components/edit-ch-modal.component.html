@@ -1,0 +1,13 @@
+<div class="modal-backdrop">
+  <div class="modal-content">
+    <h3>Carga Horária</h3>
+    <div class="form-group">
+      <label for="chValue">Horas</label>
+      <input id="chValue" type="number" [(ngModel)]="chValue" min="0" />
+    </div>
+    <div class="modal-actions">
+      <button class="cancel-btn" (click)="onCancel()">CANCELAR</button>
+      <button class="save-btn" (click)="onSave()">SALVAR</button>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,80 @@
+<section class="user-table-section">
+  <h2>Exibir usuários</h2>
+  <div class="search-filter-row">
+    <input type="text" placeholder="Digite o usuário" class="search-input" />
+    <button class="filter-btn" title="Filtrar"><span>🔍</span></button>
+  </div>
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Usuário</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Perfil</th>
+        <th>CH Mínima</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td><span class="user-icon">👤</span> {{ user.username }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email.replace('@', '&#64;') }}</td>
+        <td>
+          {{ user.profile[0] }}
+          <button class="action-btn" title="Editar Perfil" (click)="openProfileModal(user)"><span>✏️</span></button>
+        </td>
+        <td>
+          {{ user.minCH ?? '' }}
+          <button class="action-btn" title="Editar CH Mínima" (click)="openChModal(user)"><span>✏️</span></button>
+        </td>
+        <td>
+          <span class="status-badge" [ngClass]="{'ativo': user.status === 'Ativo', 'suspenso': user.status === 'Suspenso'}">{{ user.status }}</span>
+          <button class="action-btn" title="Editar Status" (click)="openStatusModal(user)"><span>✏️</span></button>
+        </td>
+        <td>
+          <button class="action-btn" title="Editar"><span>✏️</span></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="table-footer">
+    <button class="export-btn">Exportar CSV</button>
+    <span class="ch-total">CH Total: 128</span>
+    <div class="pagination">
+      <span>Itens por página</span>
+      <select>
+        <option>5</option>
+        <option>10</option>
+        <option>20</option>
+      </select>
+      <span>16-20 de 187</span>
+      <button>&lt;</button>
+      <button>&gt;</button>
+      <button>&lt;&lt;</button>
+      <button>&gt;&gt;</button>
+    </div>
+  </div>
+</section>
+
+<app-edit-profile-modal *ngIf="showProfileModal"
+  [userName]="selectedUser?.name ?? ''"
+  [selectedProfiles]="selectedProfiles"
+  [profileOptions]="profileOptions"
+  (close)="closeProfileModal()"
+  (save)="saveProfileModal($event)">
+</app-edit-profile-modal>
+
+<app-edit-status-modal *ngIf="showStatusModal"
+  [userName]="selectedUser?.name ?? ''"
+  [selectedStatus]="selectedStatus"
+  (close)="closeStatusModal()"
+  (save)="saveStatusModal($event)">
+</app-edit-status-modal>
+
+<app-edit-ch-modal *ngIf="showChModal"
+  [chValue]="selectedCh"
+  (close)="closeChModal()"
+  (save)="saveChModal($event)">
+</app-edit-ch-modal> 
