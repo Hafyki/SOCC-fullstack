@@ -1,10 +1,24 @@
 <section class="user-table-section">
   <h2>Exibir usuários</h2>
+  
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">
+    Carregando usuários...
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <!-- Search and filter -->
   <div class="search-filter-row">
     <input type="text" placeholder="Digite o usuário" class="search-input" />
     <button class="filter-btn" title="Filtrar"><span>🔍</span></button>
   </div>
-  <table class="user-table">
+
+  <!-- Table -->
+  <table class="user-table" *ngIf="!loading && !error">
     <thead>
       <tr>
         <th>Usuário</th>
@@ -22,15 +36,15 @@
         <td>{{ user.name }}</td>
         <td>{{ user.email.replace('@', '&#64;') }}</td>
         <td>
-          {{ user.profile[0] }}
+          {{ getDisplayProfiles(user) }}
           <button class="action-btn" title="Editar Perfil" (click)="openProfileModal(user)"><span>✏️</span></button>
         </td>
         <td>
-          {{ user.minCH ?? '' }}
+          {{ user.workload ?? '' }}
           <button class="action-btn" title="Editar CH Mínima" (click)="openChModal(user)"><span>✏️</span></button>
         </td>
         <td>
-          <span class="status-badge" [ngClass]="{'ativo': user.status === 'Ativo', 'suspenso': user.status === 'Suspenso'}">{{ user.status }}</span>
+          <span class="status-badge" [ngClass]="getStatusClass(user)">{{ getDisplayStatus(user) }}</span>
           <button class="action-btn" title="Editar Status" (click)="openStatusModal(user)"><span>✏️</span></button>
         </td>
         <td>
@@ -39,25 +53,28 @@
       </tr>
     </tbody>
   </table>
-  <div class="table-footer">
+
+  <!-- Table footer -->
+  <div class="table-footer" *ngIf="!loading && !error">
     <button class="export-btn">Exportar CSV</button>
-    <span class="ch-total">CH Total: 128</span>
+    <span class="ch-total">CH Total: {{ getTotalWorkload() }}</span>
     <div class="pagination">
       <span>Itens por página</span>
-      <select>
-        <option>5</option>
-        <option>10</option>
-        <option>20</option>
+      <select #pageSizeSelect (change)="onPageSizeChange(pageSizeSelect.value)">
+        <option value="5" [selected]="pageSize === 5">5</option>
+        <option value="10" [selected]="pageSize === 10">10</option>
+        <option value="20" [selected]="pageSize === 20">20</option>
       </select>
-      <span>16-20 de 187</span>
-      <button>&lt;</button>
-      <button>&gt;</button>
-      <button>&lt;&lt;</button>
-      <button>&gt;&gt;</button>
+      <span>{{ (currentPage * pageSize) + 1 }}-{{ getMinValue((currentPage + 1) * pageSize, totalElements) }} de {{ totalElements }}</span>
+      <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">&lt;</button>
+      <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages - 1">&gt;</button>
+      <button (click)="onPageChange(0)" [disabled]="currentPage === 0">&lt;&lt;</button>
+      <button (click)="onPageChange(totalPages - 1)" [disabled]="currentPage >= totalPages - 1">&gt;&gt;</button>
     </div>
   </div>
 </section>
 
+<!-- Modals -->
 <app-edit-profile-modal *ngIf="showProfileModal"
   [userName]="selectedUser?.name ?? ''"
   [selectedProfiles]="selectedProfiles"

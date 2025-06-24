@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+interface StatusOption {
+  label: string;
+  value: 'ACTIVE' | 'SUSPENDED';
+}
+
 @Component({
   selector: 'app-edit-status-modal',
   standalone: true,
@@ -10,13 +15,16 @@ import { CommonModule } from '@angular/common';
 })
 export class EditStatusModalComponent {
   @Input() userName = '';
-  @Input() selectedStatus: 'Ativo' | 'Suspenso' = 'Ativo';
+  @Input() selectedStatus: 'ACTIVE' | 'SUSPENDED' = 'ACTIVE';
   @Output() close = new EventEmitter<void>();
-  @Output() save = new EventEmitter<'Ativo' | 'Suspenso'>();
+  @Output() save = new EventEmitter<'ACTIVE' | 'SUSPENDED'>();
 
-  statusOptions: Array<'Ativo' | 'Suspenso'> = ['Ativo', 'Suspenso'];
+  statusOptions: StatusOption[] = [
+    { label: 'Ativo', value: 'ACTIVE' },
+    { label: 'Suspenso', value: 'SUSPENDED' }
+  ];
 
-  onSelectStatus(status: 'Ativo' | 'Suspenso') {
+  onSelectStatus(status: 'ACTIVE' | 'SUSPENDED') {
     this.selectedStatus = status;
   }
 

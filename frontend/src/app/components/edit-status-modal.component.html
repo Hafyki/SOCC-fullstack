@@ -9,8 +9,8 @@
       <label>Status</label>
       <div class="profile-list">
         <div *ngFor="let status of statusOptions" class="profile-option">
-          <input type="checkbox" [id]="status" [checked]="selectedStatus === status" (change)="onSelectStatus(status)" [name]="'status'" />
-          <label [for]="status">{{ status }}</label>
+          <input type="checkbox" [id]="status.value" [checked]="selectedStatus === status.value" (change)="onSelectStatus(status.value)" [name]="'status'" />
+          <label [for]="status.value">{{ status.label }}</label>
         </div>
       </div>
     </div>
