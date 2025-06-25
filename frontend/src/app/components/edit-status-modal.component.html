@@ -1,0 +1,22 @@
+<div class="modal-backdrop">
+  <div class="modal-content">
+    <h3>Editar Status</h3>
+    <div class="form-group">
+      <label for="userName">Nome</label>
+      <input id="userName" type="text" [value]="userName" readonly />
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <div class="profile-list">
+        <div *ngFor="let status of statusOptions" class="profile-option">
+          <input type="checkbox" [id]="status.value" [checked]="selectedStatus === status.value" (change)="onSelectStatus(status.value)" [name]="'status'" />
+          <label [for]="status.value">{{ status.label }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="cancel-btn" (click)="onCancel()">CANCELAR</button>
+      <button class="save-btn" (click)="onSave()">SALVAR</button>
+    </div>
+  </div>
+</div> 

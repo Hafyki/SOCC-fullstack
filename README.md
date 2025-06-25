@@ -1,4 +1,5 @@
 # Sistema de Oferta de Componentes Curriculares (SOCC)
+
 Repositório destinado ao Trabalho Incremental do Grupo 5 da disciplina de Desenvolvimento FullStack.
 
 ## 📌 Membros
@@ -12,6 +13,10 @@ Repositório destinado ao Trabalho Incremental do Grupo 5 da disciplina de Desen
 * Listar dados dos usuários (FP)
 * Atribuir perfil ao usuário (FA01)
 * Alterar status do usuário (FA02)
+
+## 📌 Frameworks
+* Back-end: Spring Boot
+* Front-end: Angular
 
 ## 📌 Diagrama de Classes
 
@@ -116,13 +121,31 @@ erDiagram
 Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
 * **POST /users:** Criar um novo usuário
 * **GET /users:** Resgatar os dados de todos os usuários (com paginação)
-* **GET /users/{id}:** Resgatar os dados de um usuário específico
-* **PATCH /users/{id}:** Vai atualizar parcialmente os dados de um usuário, em particular os perfis que ele possui no sistema e o seu status
+* **GET /users/{id}:** Resgatar os dados de um usuário específico com base no ID
+* **GET /users/search?username={username}:** Resgatar os dados de usuários com base no username
+* **PATCH /users/{id}:** Vai atualizar parcialmente os dados de um usuário, em particular os perfis que ele possui no sistema e o seu status (também é possível alterar a carga horária do usuário, embora não seja da nossa responsabilidade)
 
 > Os grupos responsáveis pela manutenção do perfil (Grupo 7) e pelo gerenciamento de permissões (Grupo 8) serão encarregados de implementar as rotas e operações CRUD das entidades relacionadas a Perfil (Profile) e Permissões (Permission). Portanto, o nosso foco será direcionado especificamente aos itens do nosso caso de uso: o Usuário (User).
 
-## 📌 Documentação API (Back-End)
+## 📌 Documentação API (Back-end)
 
 Para mais detalhes sobre os endpoints da API — incluindo exemplos de parâmetros, RequestBody e ResponseBody — consulte a [documentação completa aqui](https://www.postman.com/ultralight-4892/projeto-final-de-desenvolvimento-fullstack/overview). 
 
 Também é possível visualizar e testar os endpoints diretamente através do Swagger da API. Basta executar a aplicação e acessar: ```http://localhost:8080/swagger-ui/index.html```.
+
+## 📌 Comandos para executar a aplicação 
+
+* Back-end:
+
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+
+* Front-end:
+
+```bash
+cd frontend
+npm install
+npm start // se não funcionar: "ng serve"
+```

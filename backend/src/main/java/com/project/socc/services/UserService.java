@@ -41,8 +41,8 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
-    public List<User> findUsersByUsername(String username) {
-        List<User> users = userRepository.findByUsernameStartingWith(username);
+    public Page<User> findUsersByUsername(String username, Pageable pageable) {
+        Page<User> users = userRepository.findByUsernameStartingWith(username, pageable);
         if (users.isEmpty()) {
             throw new EntityNotFoundException("User with username: " + username + " not found");
         }

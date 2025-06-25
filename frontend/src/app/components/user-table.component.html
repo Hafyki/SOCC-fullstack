@@ -1,0 +1,113 @@
+<section class="user-table-section">
+    <h2>Exibir usuários</h2>
+
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading">
+        Carregando usuários...
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="error" class="error">
+        {{ error }}
+    </div>
+
+    <!-- Search and filter -->
+    <div class="search-filter-row">
+        <input type="text" [value]="searchTerm" (input)="onInputChange($event)" (keyup.enter)="loadUsers()" placeholder="Digite o usuário" class="search-input" />
+        <button class="filter-btn" title="Filtrar" (click) = "loadUsers()"><span>🔍</span></button>
+    </div>
+
+    <!-- Table -->
+    <table class="user-table" *ngIf="!loading && !error">
+        <thead>
+        <tr>
+            <th class="col-usuario">Usuário</th>
+            <th class="col-nome">Nome</th>
+            <th class="col-email">Email</th>
+            <th class="col-perfil">Perfil</th>
+            <th class="col-edit-btn"></th> <!-- Coluna para editar perfil -->
+            <th class="col-ch">CH Mínima</th>
+            <th class="col-edit-btn"></th> <!-- Coluna para editar CH -->
+            <th class="col-status">Status</th>
+            <th class="col-edit-btn"></th> <!-- Coluna para editar status -->
+            <th class="col-acoes">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+            <td>
+                <div class="user-cell">
+                    <span class="user-icon">👤</span>
+                    <span>{{ user.username }}</span>
+                </div>
+            </td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email.replace('@', '&#64;') }}</td>
+            <td>{{ getDisplayProfiles(user) }}</td>
+            <td>
+                <button class="action-btn" title="Editar Perfil" (click)="openProfileModal(user)">
+                    <span>✏️</span>
+                </button>
+            </td>
+            <td>{{ user.workload ?? '' }}</td>
+            <td>
+                <button class="action-btn" title="Editar CH Mínima" (click)="openChModal(user)">
+                    <span>✏️</span>
+                </button>
+            </td>
+            <td>
+                <span class="status-badge" [ngClass]="getStatusClass(user)">{{ getDisplayStatus(user) }}</span>
+            </td>
+            <td>
+                <button class="action-btn" title="Editar Status" (click)="openStatusModal(user)">
+                    <span>✏️</span>
+                </button>
+            </td>
+            <td>
+                <button class="action-btn" title="Editar"><span>✏️</span></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Table footer -->
+    <div class="table-footer" *ngIf="!loading && !error && users.length > 0">
+        <button class="export-btn">Exportar CSV</button>
+        <span class="ch-total">CH Total: {{ getTotalWorkload() }}</span>
+        <div class="pagination">
+            <span>Itens por página</span>
+            <select #pageSizeSelect (change)="onPageSizeChange(pageSizeSelect.value)">
+                <option value="5" [selected]="pageSize === 5">5</option>
+                <option value="10" [selected]="pageSize === 10">10</option>
+                <option value="20" [selected]="pageSize === 20">20</option>
+            </select>
+            <span>{{ getPaginationText() }}</span>
+            <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">&lt;</button>
+            <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages - 1">&gt;</button>
+            <button (click)="onPageChange(0)" [disabled]="currentPage === 0">&lt;&lt;</button>
+            <button (click)="onPageChange(totalPages - 1)" [disabled]="currentPage >= totalPages - 1">&gt;&gt;</button>
+        </div>
+    </div>
+</section>
+
+<!-- Modals -->
+<app-edit-profile-modal *ngIf="showProfileModal"
+                        [userName]="selectedUser?.name ?? ''"
+                        [selectedProfiles]="selectedProfiles"
+                        [profileOptions]="profileOptions"
+                        (close)="closeProfileModal()"
+                        (save)="saveProfileModal($event)">
+</app-edit-profile-modal>
+
+<app-edit-status-modal *ngIf="showStatusModal"
+                       [userName]="selectedUser?.name ?? ''"
+                       [selectedStatus]="selectedStatus"
+                       (close)="closeStatusModal()"
+                       (save)="saveStatusModal($event)">
+</app-edit-status-modal>
+
+<app-edit-ch-modal *ngIf="showChModal"
+                   [chValue]="selectedCh"
+                   (close)="closeChModal()"
+                   (save)="saveChModal($event)">
+</app-edit-ch-modal>
