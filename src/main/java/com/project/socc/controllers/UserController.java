@@ -72,12 +72,24 @@ public class UserController {
     }
 
     /**
-     * GET ONE
+     * GET USER BY ID
      */
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable UUID id) {
+    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
         User user = userService.findUserById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    /**
+     * GET USER BY USERNAME
+     */
+
+    @GetMapping("/search")
+    public ResponseEntity<User> getUserByUsername(
+            @RequestParam(required = false) String username
+    ) {
+        User user = userService.findUserByUsername(username);
         return ResponseEntity.ok(user);
     }
 

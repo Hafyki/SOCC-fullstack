@@ -41,6 +41,16 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
+    public User findUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            throw new EntityNotFoundException("User with username: " + username + " not found");
+        }
+
+        return user;
+    }
+
     public User updateUser(UUID id, UserUpdateRequestDTO userRequest) {
 
         // Antes de tudo, verifica se existe usuário com tal ID
