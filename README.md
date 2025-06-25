@@ -133,6 +133,8 @@ Para mais detalhes sobre os endpoints da API — incluindo exemplos de parâmetr
 
 Também é possível visualizar e testar os endpoints diretamente através do Swagger da API. Basta executar a aplicação e acessar: ```http://localhost:8080/swagger-ui/index.html```.
 
+O arquivo JSON com os dados de múltiplos usuários, que serão criados via requisição POST usando o Collection Runner do Postman, está disponível [aqui](https://drive.google.com/file/d/1VH235ayRvyyo3TcEE7XQcBKcD0paOVU0/view?usp=sharing).
+
 ## 📌 Comandos para executar a aplicação 
 
 * Back-end:
