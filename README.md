@@ -15,8 +15,8 @@ Repositório destinado ao Trabalho Incremental do Grupo 5 da disciplina de Desen
 * Alterar status do usuário (FA02)
 
 ## 📌 Frameworks
-* Backend: Spring Boot
-* Frontend: Angular
+* Back-end: Spring Boot
+* Front-end: Angular
 
 ## 📌 Diagrama de Classes
 
@@ -126,7 +126,7 @@ Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
 
 > Os grupos responsáveis pela manutenção do perfil (Grupo 7) e pelo gerenciamento de permissões (Grupo 8) serão encarregados de implementar as rotas e operações CRUD das entidades relacionadas a Perfil (Profile) e Permissões (Permission). Portanto, o nosso foco será direcionado especificamente aos itens do nosso caso de uso: o Usuário (User).
 
-## 📌 Documentação API (Back-End)
+## 📌 Documentação API (Back-end)
 
 Para mais detalhes sobre os endpoints da API — incluindo exemplos de parâmetros, RequestBody e ResponseBody — consulte a [documentação completa aqui](https://www.postman.com/ultralight-4892/projeto-final-de-desenvolvimento-fullstack/overview). 
 
@@ -134,14 +134,14 @@ Também é possível visualizar e testar os endpoints diretamente através do Sw
 
 ## 📌 Comandos para executar a aplicação 
 
-* Backend:
+* Back-end:
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 
-* Frontend:
+* Front-end:
 
 ```bash
 cd frontend
