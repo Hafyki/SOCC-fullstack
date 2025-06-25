@@ -13,8 +13,8 @@
 
     <!-- Search and filter -->
     <div class="search-filter-row">
-        <input type="text" placeholder="Digite o usuário" class="search-input" />
-        <button class="filter-btn" title="Filtrar"><span>🔍</span></button>
+        <input type="text" [value]="searchTerm" (input)="onInputChange($event)" (keyup.enter)="loadUsers()" placeholder="Digite o usuário" class="search-input" />
+        <button class="filter-btn" title="Filtrar" (click) = "loadUsers()"><span>🔍</span></button>
     </div>
 
     <!-- Table -->

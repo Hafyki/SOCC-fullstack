@@ -63,6 +63,36 @@ export class UserService {
         );
   }
 
+  findUsersByUserName(
+  usrname: string,
+  page: number = 0,
+  
+): Observable<PagedResult<User>> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  });
+
+  // Monta os params, incluindo o filtro de nome
+  let params = new HttpParams()
+    .set('name', usrname)                       // adiciona o filtro de busca
+    
+
+
+  return this.http.get<PagedResult<User>>( `${this.apiUrl}/search`, { params, headers })
+    .pipe(
+      tap(response => {
+        console.log('Response from backend:', response);
+        console.log('Number of users:', response.content?.length || 0);
+      }),
+      catchError(this.handleError)
+    );
+}
+
+
   getUser(id: string): Observable<User> {
     if (this.useMockData) {
       return this.getMockUser(id);
@@ -104,6 +134,8 @@ export class UserService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
+
+    
 
     // Converter o formato do frontend para o formato esperado pelo backend
     const updateRequest: UserUpdateRequest = {
@@ -249,4 +281,5 @@ export class UserService {
   setUseMockData(useMock: boolean) {
     this.useMockData = useMock;
   }
+
 }

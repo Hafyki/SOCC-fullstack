@@ -1,7 +1,6 @@
 package com.project.socc.controllers;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -92,13 +92,15 @@ public class UserController {
     }
 
     /**
-     * GET ALL BY NAME
+     * GET ALL BY USERNAME
      */
 
     @GetMapping("/search")
-    public ResponseEntity<List<User>> searchUsersByName(@RequestParam String name) {
-        List<User> users = userService.findUsersByName(name);
-        return ResponseEntity.ok(users);
+    public ResponseEntity<Page<User>> findUsersByUserName(
+        @RequestParam String username,
+        @PageableDefault(size = 10, sort = "name") Pageable pageable) {
+        Page<User> page = userService.findUsersByUserName(username, pageable);
+        return ResponseEntity.ok(page);
     }
 
     /**

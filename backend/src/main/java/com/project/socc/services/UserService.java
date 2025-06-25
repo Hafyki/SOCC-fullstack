@@ -1,19 +1,21 @@
 package com.project.socc.services;
 
-import com.project.socc.dtos.UserUpdateRequestDTO;
-import com.project.socc.entities.Profile;
-import com.project.socc.entities.User;
-import com.project.socc.enums.UserStatus;
-import com.project.socc.repositories.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
+import com.project.socc.dtos.UserUpdateRequestDTO;
+import com.project.socc.entities.Profile;
+import com.project.socc.entities.User;
+import com.project.socc.enums.UserStatus;
+import com.project.socc.repositories.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Transactional
 @Service
@@ -41,13 +43,9 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
-    public List<User> findUsersByName(String name) {
-    List<User> users = userRepository.findByNameContainingIgnoreCase(name);
-    if (users.isEmpty()) {
-        throw new EntityNotFoundException("No users found matching: " + name);
+    public Page<User> findUsersByUserName(String username, Pageable pageable) {
+        return userRepository.findByUserNameContainingIgnoreCase(username, pageable);
     }
-    return users;
-}
 
 
     public User updateUser(UUID id, UserUpdateRequestDTO userRequest) {

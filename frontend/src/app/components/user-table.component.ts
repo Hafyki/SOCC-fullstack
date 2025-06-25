@@ -34,6 +34,9 @@ export class UserTableComponent implements OnInit {
   selectedStatus: 'ACTIVE' | 'SUSPENDED' = 'ACTIVE';
   selectedCh: number | null = null;
 
+  //Barra de pesquisa
+  searchTerm: string = '';
+
   // Opções para modais - Atualizado com os IDs corretos do backend
   profileOptions = [
     { label: 'Administrador', value: 'ADMINISTRATOR' },
@@ -71,14 +74,27 @@ export class UserTableComponent implements OnInit {
     this.loadUsers();
   }
 
+  onSearch(){
+    this.currentPage = 0;
+    this.loadUsers(0)
+  }
+
   loadUsers(page = 0) {
     this.loading = true;
     this.error = null;
 
     console.log(`Carregando usuários - Página: ${page}, Tamanho: ${this.pageSize}`);
 
-    this.userService.getUsers(page, this.pageSize, 'name', 'asc')
-        .subscribe({
+    let request$
+    const usrname = this.searchTerm.trim();
+    if (usrname){
+    console.log('Carregando usuarios por nome: ${usrname}');
+      request$ = this.userService.findUsersByUserName(usrname,page);
+    }
+    else{
+    request$ = this.userService.getUsers(page, this.pageSize, 'name', 'asc')
+    }
+      request$.subscribe({
           next: (result) => {
             console.log('Resposta do backend:', result);
             console.log('Usuários recebidos:', result.content);
@@ -305,5 +321,10 @@ export class UserTableComponent implements OnInit {
     const end = Math.min((this.currentPage + 1) * this.pageSize, this.totalElements);
 
     return `${start}-${end} de ${this.totalElements}`;
+  }
+
+  onInputChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchTerm = input.value;
   }
 }
