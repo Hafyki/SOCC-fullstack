@@ -64,7 +64,7 @@ export class UserService {
   }
 
   findUsersByUserName(
-  usrname: string,
+  username: string,
   page: number = 0,
   
 ): Observable<PagedResult<User>> {
@@ -78,7 +78,7 @@ export class UserService {
 
   // Monta os params, incluindo o filtro de nome
   let params = new HttpParams()
-    .set('name', usrname)                       // adiciona o filtro de busca
+    .set('username', username)                       // adiciona o filtro de busca
     
 
 

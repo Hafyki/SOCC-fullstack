@@ -83,16 +83,27 @@ public class UserController {
     }
 
     /**
-     * GET USER BY USERNAME
+     * GET USERS BY USERNAME
      */
 
     @GetMapping("/search")
-    public ResponseEntity<List<User>> getUsersByUsername(
-            @RequestParam String username
+    public ResponseEntity<Page<User>> getUsersByUsername(
+            @RequestParam String username,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir
     ) {
-        List<User> users = userService.findUsersByUsername(username);
+        Sort sort = sortDir.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() :
+                Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<User> users = userService.findUsersByUsername(username, pageable);
         return ResponseEntity.ok(users);
     }
+
 
     /**
      * PATCH
