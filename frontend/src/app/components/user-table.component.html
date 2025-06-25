@@ -35,7 +35,12 @@
         </thead>
         <tbody>
         <tr *ngFor="let user of users">
-            <td><span class="user-icon">👤</span> {{ user.username }}</td>
+            <td>
+                <div class="user-cell">
+                    <span class="user-icon">👤</span>
+                    <span>{{ user.username }}</span>
+                </div>
+            </td>
             <td>{{ user.name }}</td>
             <td>{{ user.email.replace('@', '&#64;') }}</td>
             <td>{{ getDisplayProfiles(user) }}</td>
@@ -76,7 +81,7 @@
                 <option value="10" [selected]="pageSize === 10">10</option>
                 <option value="20" [selected]="pageSize === 20">20</option>
             </select>
-            <span *ngIf = "totalElements !== undefined">{{ getPaginationText() }}</span>
+            <span>{{ getPaginationText() }}</span>
             <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">&lt;</button>
             <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages - 1">&gt;</button>
             <button (click)="onPageChange(0)" [disabled]="currentPage === 0">&lt;&lt;</button>

@@ -1,42 +1,37 @@
 .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #1a252f;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-  padding: 0;
-  height: 64px;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; // Fica acima de tudo
 
   .logo-area {
-    display: flex;
-    align-items: center;
-    padding-left: 2rem;
-    min-width: 120px;
     .socc-logo {
-      font-size: 2.1rem;
-      font-weight: 700;
-      color: #0a4c8b;
-      font-family: 'Segoe UI', 'Arial', sans-serif;
-      letter-spacing: 0.1em;
-      user-select: none;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
   }
 
   .user-avatar {
-    display: flex;
-    align-items: center;
-    padding-right: 2rem;
     .avatar-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #e0e7ef;
-      color: #0a4c8b;
-      font-size: 2rem;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
       border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
     }
   }
-} 
+}
