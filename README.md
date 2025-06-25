@@ -2,8 +2,6 @@
 
 Repositório destinado ao Trabalho Incremental do Grupo 5 da disciplina de Desenvolvimento FullStack.
 
-Projeto fullstack com backend Spring Boot e frontend Angular.
-
 ## 📌 Membros
 * Gustavo Neves Piedade Louzada
 * Hafy Mourad Jacoub de Cuba Kouzak
@@ -15,6 +13,10 @@ Projeto fullstack com backend Spring Boot e frontend Angular.
 * Listar dados dos usuários (FP)
 * Atribuir perfil ao usuário (FA01)
 * Alterar status do usuário (FA02)
+
+## 📌 Frameworks
+* Backend: Spring Boot
+* Frontend: Angular
 
 ## 📌 Diagrama de Classes
 
@@ -130,14 +132,16 @@ Para mais detalhes sobre os endpoints da API — incluindo exemplos de parâmetr
 
 Também é possível visualizar e testar os endpoints diretamente através do Swagger da API. Basta executar a aplicação e acessar: ```http://localhost:8080/swagger-ui/index.html```.
 
-### Executando o backend
+## 📌 Comandos para executar a aplicação 
+
+* Backend:
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 
-### Executando o frontend
+* Frontend:
 
 ```bash
 cd frontend
