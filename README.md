@@ -121,8 +121,9 @@ erDiagram
 Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
 * **POST /users:** Criar um novo usuário
 * **GET /users:** Resgatar os dados de todos os usuários (com paginação)
-* **GET /users/{id}:** Resgatar os dados de um usuário específico
-* **PATCH /users/{id}:** Vai atualizar parcialmente os dados de um usuário, em particular os perfis que ele possui no sistema e o seu status
+* **GET /users/{id}:** Resgatar os dados de um usuário específico com base no ID
+* **GET /users/search?username={username}:** Resgatar os dados de usuários com base no username
+* **PATCH /users/{id}:** Vai atualizar parcialmente os dados de um usuário, em particular os perfis que ele possui no sistema e o seu status (também é possível alterar a carga horária do usuário, embora não seja da nossa responsabilidade)
 
 > Os grupos responsáveis pela manutenção do perfil (Grupo 7) e pelo gerenciamento de permissões (Grupo 8) serão encarregados de implementar as rotas e operações CRUD das entidades relacionadas a Perfil (Profile) e Permissões (Permission). Portanto, o nosso foco será direcionado especificamente aos itens do nosso caso de uso: o Usuário (User).
 
