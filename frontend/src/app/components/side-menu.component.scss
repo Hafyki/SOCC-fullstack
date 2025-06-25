@@ -1,10 +1,11 @@
 .side-menu {
-  width: 220px;
+  width: 230px;
   background: #16202a;
   color: #fff;
-  height: calc(100vh - 64px);
-  padding-top: 1.5rem;
-  position: fixed;
+  //height: calc(100vh - 64px);
+  height: 100%;
+  padding-top: -1.5rem;
+  position: sticky;
   left: 0;
   top: 64px;
   z-index: 10;
@@ -24,7 +25,7 @@
       }
       &.active, &:hover {
         background: #223042;
-        font-weight: bold;
+        //font-weight: bold;
       }
     }
   }
