@@ -60,6 +60,7 @@
     background-color: white;
     border-collapse: collapse;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    table-layout: fixed; // Força larguras fixas nas colunas
 
     thead {
       tr {
@@ -71,11 +72,19 @@
           font-weight: 600;
           color: #333;
           border-bottom: 2px solid #ddd;
+          white-space: nowrap; // Evita quebra de linha
 
-          // Colunas vazias (para botões de edição) mais estreitas
-          &:nth-child(5),
-          &:nth-child(7),
-          &:nth-child(9) {
+          // Definir larguras específicas para cada coluna
+          &.col-usuario { width: 150px; }
+          &.col-nome { width: 200px; }
+          &.col-email { width: 250px; }
+          &.col-perfil { width: auto; } // Flexível
+          &.col-ch { width: 100px; text-align: center; }
+          &.col-status { width: 100px; }
+          &.col-acoes { width: 80px; }
+
+          // Colunas dos botões de edição
+          &.col-edit-btn {
             width: 40px;
             padding: 15px 5px;
           }
@@ -113,6 +122,12 @@
           &:nth-child(9) {
             padding: 12px 5px;
             text-align: center;
+            width: 40px; // Força largura fixa
+          }
+
+          // Coluna CH alinhada ao centro
+          &:nth-child(6) {
+            text-align: center;
           }
 
           .status-badge {
@@ -120,6 +135,9 @@
             border-radius: 12px;
             font-size: 12px;
             font-weight: 500;
+            display: inline-block; // Garante dimensões consistentes
+            min-width: 70px; // Largura mínima
+            text-align: center;
 
             &.ativo {
               background-color: #e8f5e9;
