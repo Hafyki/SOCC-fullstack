@@ -86,10 +86,10 @@ export class UserTableComponent implements OnInit {
     console.log(`Carregando usuários - Página: ${page}, Tamanho: ${this.pageSize}`);
 
     let request$
-    const usrname = this.searchTerm.trim();
-    if (usrname){
-    console.log('Carregando usuarios por nome: ${usrname}');
-      request$ = this.userService.findUsersByUserName(usrname,page);
+    const username = this.searchTerm.trim();
+    if (username){
+    console.log('Carregando usuarios por nome: ${username}');
+      request$ = this.userService.findUsersByUserName(username, page);
     }
     else{
     request$ = this.userService.getUsers(page, this.pageSize, 'name', 'asc')

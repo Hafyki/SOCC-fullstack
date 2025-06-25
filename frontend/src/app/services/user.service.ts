@@ -53,11 +53,20 @@ export class UserService {
         .set('sortBy', sortBy)
         .set('sortDir', sortDir);
 
-    return this.http.get<PagedResult<User>>(this.apiUrl, { params, headers })
+    return this.http.get<any>(this.apiUrl, { params, headers })
         .pipe(
-            tap(response => {
-              console.log('Response from backend:', response);
-              console.log('Number of users:', response.content?.length || 0);
+            map(response => {
+              // Transforma a resposta aninhada para a estrutura plana esperada
+              return {
+                content: response.content,
+                totalElements: response.page.totalElements,
+                totalPages: response.page.totalPages,
+                number: response.page.number,
+                size: response.page.size
+              };
+            }),
+            tap(transformedResponse => {
+              console.log('Response transformed for component:', transformedResponse);
             }),
             catchError(this.handleError)
         );
@@ -78,20 +87,27 @@ export class UserService {
 
   // Monta os params, incluindo o filtro de nome
   let params = new HttpParams()
-    .set('username', username)                       // adiciona o filtro de busca
-    
+    .set('username', username) // adiciona o filtro de busca
+    .set('page', page.toString())
 
-
-  return this.http.get<PagedResult<User>>( `${this.apiUrl}/search`, { params, headers })
-    .pipe(
-      tap(response => {
-        console.log('Response from backend:', response);
-        console.log('Number of users:', response.content?.length || 0);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http.get<any>(`${this.apiUrl}/search`, { params, headers })
+        .pipe(
+            map(response => {
+              // Transforma a resposta aninhada para a estrutura plana esperada
+              return {
+                content: response.content,
+                totalElements: response.page.totalElements,
+                totalPages: response.page.totalPages,
+                number: response.page.number,
+                size: response.page.size
+              };
+            }),
+            tap(transformedResponse => {
+              console.log('Response transformed for component:', transformedResponse);
+            }),
+            catchError(this.handleError)
+        );
 }
-
 
   getUser(id: string): Observable<User> {
     if (this.useMockData) {
