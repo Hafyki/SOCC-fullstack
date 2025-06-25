@@ -1,113 +1,8 @@
-# SOCC Fullstack
+# Sistema de Oferta de Componentes Curriculares (SOCC)
+
+Repositório destinado ao Trabalho Incremental do Grupo 5 da disciplina de Desenvolvimento FullStack.
 
 Projeto fullstack com backend Spring Boot e frontend Angular.
-
-## Estrutura do Projeto
-
-```
-SOCC-fullstack/
-├── backend/           # Aplicação Spring Boot
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/project/socc/
-│   │   │   │   ├── controllers/    # Controladores REST
-│   │   │   │   ├── services/       # Lógica de negócio
-│   │   │   │   ├── repositories/   # Acesso a dados
-│   │   │   │   ├── entities/       # Entidades JPA
-│   │   │   │   ├── dtos/           # Objetos de transferência
-│   │   │   │   ├── exceptions/     # Tratamento de exceções
-│   │   │   │   ├── enums/          # Enumerações
-│   │   │   │   ├── config/         # Configurações
-│   │   │   │   └── utils/          # Utilitários
-│   │   │   └── resources/          # Arquivos de configuração
-│   │   └── test/                   # Testes
-│   ├── pom.xml                     # Dependências Maven
-│   └── mvnw                        # Wrapper Maven
-└── frontend/          # Aplicação Angular
-    ├── src/
-    │   ├── app/
-    │   │   ├── components/         # Componentes reutilizáveis
-    │   │   ├── services/           # Serviços para API
-    │   │   ├── models/             # Interfaces TypeScript
-    │   │   ├── guards/             # Guards de rota
-    │   │   ├── interceptors/       # Interceptors HTTP
-    │   │   ├── pipes/              # Pipes customizados
-    │   │   └── shared/             # Módulos compartilhados
-    │   ├── assets/                 # Arquivos estáticos
-    │   └── environments/           # Configurações de ambiente
-    ├── package.json                # Dependências npm
-    └── angular.json                # Configuração Angular
-```
-
-## Backend (Spring Boot)
-
-### Pré-requisitos
-- Java 17 ou superior
-- Maven
-
-### Executando o backend
-
-```bash
-cd backend
-./mvnw spring-boot:run
-```
-
-A API estará disponível em `http://localhost:8080`
-
-## Frontend (Angular)
-
-### Pré-requisitos
-- Node.js 18 ou superior
-- npm
-
-### Executando o frontend
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-A aplicação estará disponível em `http://localhost:4200`
-
-## Funcionalidades
-
-### Backend
-- ✅ API REST com Spring Boot
-- ✅ Estrutura MVC organizada
-- ✅ Entidades JPA configuradas
-- ✅ Controladores para usuários
-- ✅ Tratamento de exceções
-- ✅ DTOs para transferência de dados
-
-### Frontend
-- ✅ Aplicação Angular 17
-- ✅ Estrutura organizada
-- ✅ Componente Hello World
-- ✅ Estilos SCSS
-- ✅ Roteamento básico
-- ✅ Preparado para integração com backend
-
-## Desenvolvimento
-
-### Backend
-- Use `./mvnw test` para executar testes
-- Use `./mvnw clean install` para build completo
-
-### Frontend
-- Use `npm test` para executar testes
-- Use `npm run build` para build de produção
-
-## Próximos passos
-
-1. Implementar autenticação JWT
-2. Criar componentes específicos no frontend
-3. Implementar serviços de comunicação com API
-4. Adicionar validações de formulário
-5. Implementar testes automatizados
-
-# Sistema de Oferta de Componentes Curriculares (SOCC)
-Repositório destinado ao Trabalho Incremental do Grupo 5 da disciplina de Desenvolvimento FullStack.
 
 ## 📌 Membros
 * Gustavo Neves Piedade Louzada
@@ -234,3 +129,18 @@ Considerando nosso caso de uso, teríamos os seguintes métodos HTTP:
 Para mais detalhes sobre os endpoints da API — incluindo exemplos de parâmetros, RequestBody e ResponseBody — consulte a [documentação completa aqui](https://www.postman.com/ultralight-4892/projeto-final-de-desenvolvimento-fullstack/overview). 
 
 Também é possível visualizar e testar os endpoints diretamente através do Swagger da API. Basta executar a aplicação e acessar: ```http://localhost:8080/swagger-ui/index.html```.
+
+### Executando o backend
+
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+
+### Executando o frontend
+
+```bash
+cd frontend
+npm install
+npm start // se não funcionar: "ng serve"
+```
