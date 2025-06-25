@@ -45,7 +45,7 @@ tmp/
 out-tsc/
 
 # Angular cache - ESSENCIAL
-.angular/cache/
+.angular/
 
 # Logs - ESSENCIAIS
 logs

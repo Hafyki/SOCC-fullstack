@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id: string; // UUID do backend será tratado como string no frontend
   username: string;
   name: string;
   email: string;
@@ -16,15 +16,15 @@ export interface Profile {
   protectedProfile: boolean;
 }
 
-export type ProfileRole = 
-  | 'ADMINISTRATOR'
-  | 'COURSE_COORDINATOR'
-  | 'ASSISTANT_COURSE_COORDINATOR'
-  | 'PROFESSOR'
-  | 'ACADEMIC_SECRETARY'
-  | 'TECHNICAL_PEDAGOGICAL_STAFF'
-  | 'STUDENT'
-  | 'PEDAGOGICAL_CURATOR'
-  | 'DIRECTOR'
-  | 'DEPUTY_DIRECTOR'
-  | 'BOARD_MEMBER'; 
+export type ProfileRole =
+    | 'ADMINISTRATOR'
+    | 'COURSE_COORDINATOR'
+    | 'ASSISTANT_COURSE_COORDINATOR'
+    | 'PROFESSOR'
+    | 'ACADEMIC_SECRETARY'
+    | 'TECHNICAL_PEDAGOGICAL_STAFF'
+    | 'STUDENT'
+    | 'PEDAGOGICAL_CURATOR'
+    | 'DIRECTOR'
+    | 'DEPUTY_DIRECTOR'
+    | 'BOARD_MEMBER';
