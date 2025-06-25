@@ -21,21 +21,26 @@
     <table class="user-table" *ngIf="!loading && !error">
         <thead>
         <tr>
-            <th>Usuário</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Perfil</th>
-            <th></th> <!-- Coluna para editar perfil -->
-            <th>CH Mínima</th>
-            <th></th> <!-- Coluna para editar CH -->
-            <th>Status</th>
-            <th></th> <!-- Coluna para editar status -->
-            <th>Ações</th>
+            <th class="col-usuario">Usuário</th>
+            <th class="col-nome">Nome</th>
+            <th class="col-email">Email</th>
+            <th class="col-perfil">Perfil</th>
+            <th class="col-edit-btn"></th> <!-- Coluna para editar perfil -->
+            <th class="col-ch">CH Mínima</th>
+            <th class="col-edit-btn"></th> <!-- Coluna para editar CH -->
+            <th class="col-status">Status</th>
+            <th class="col-edit-btn"></th> <!-- Coluna para editar status -->
+            <th class="col-acoes">Ações</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let user of users">
-            <td><span class="user-icon">👤</span> {{ user.username }}</td>
+            <td>
+                <div class="user-cell">
+                    <span class="user-icon">👤</span>
+                    <span>{{ user.username }}</span>
+                </div>
+            </td>
             <td>{{ user.name }}</td>
             <td>{{ user.email.replace('@', '&#64;') }}</td>
             <td>{{ getDisplayProfiles(user) }}</td>
@@ -76,7 +81,7 @@
                 <option value="10" [selected]="pageSize === 10">10</option>
                 <option value="20" [selected]="pageSize === 20">20</option>
             </select>
-            <span *ngIf = "totalElements !== undefined">{{ getPaginationText() }}</span>
+            <span>{{ getPaginationText() }}</span>
             <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">&lt;</button>
             <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages - 1">&gt;</button>
             <button (click)="onPageChange(0)" [disabled]="currentPage === 0">&lt;&lt;</button>
