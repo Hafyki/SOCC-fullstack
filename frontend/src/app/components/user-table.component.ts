@@ -41,14 +41,14 @@ export class UserTableComponent implements OnInit {
   profileOptions = [
     { label: 'Administrador', value: 'ADMINISTRATOR' },
     { label: 'Coordenador de Curso', value: 'COURSE_COORDINATOR' },
-    { label: 'Vice-Coordenador de Curso', value: 'ASSISTANT_COURSE_COORDINATOR' },
+    { label: 'Vice-coordenador de Curso', value: 'ASSISTANT_COURSE_COORDINATOR' },
     { label: 'Professor', value: 'PROFESSOR' },
     { label: 'Secretário Acadêmico', value: 'ACADEMIC_SECRETARY' },
-    { label: 'Técnico-Pedagógico', value: 'TECHNICAL_PEDAGOGICAL_STAFF' },
+    { label: 'Técnico-pedagógico', value: 'TECHNICAL_PEDAGOGICAL_STAFF' },
     { label: 'Estudante', value: 'STUDENT' },
     { label: 'Curador Pedagógico', value: 'PEDAGOGICAL_CURATOR' },
     { label: 'Diretor', value: 'DIRECTOR' },
-    { label: 'Vice-Diretor', value: 'DEPUTY_DIRECTOR' },
+    { label: 'Vice-diretor', value: 'DEPUTY_DIRECTOR' },
     { label: 'Membro do Conselho Diretor', value: 'BOARD_MEMBER' }
   ];
 
@@ -295,7 +295,10 @@ export class UserTableComponent implements OnInit {
     if (!user.profiles || user.profiles.length === 0) {
       return 'Sem perfil';
     }
-    return user.profiles.map(p => p.description).join(', ');
+    return user.profiles.map(profile => {
+      const profileOption = this.profileOptions.find(option => option.value == profile.role);
+      return profileOption ? profileOption.label : profile.description;
+    }).join(', ');
   }
 
   getDisplayStatus(user: User): string {
