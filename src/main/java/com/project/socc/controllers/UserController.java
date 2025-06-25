@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -86,11 +87,11 @@ public class UserController {
      */
 
     @GetMapping("/search")
-    public ResponseEntity<User> getUserByUsername(
-            @RequestParam(required = false) String username
+    public ResponseEntity<List<User>> getUsersByUsername(
+            @RequestParam String username
     ) {
-        User user = userService.findUserByUsername(username);
-        return ResponseEntity.ok(user);
+        List<User> users = userService.findUsersByUsername(username);
+        return ResponseEntity.ok(users);
     }
 
     /**

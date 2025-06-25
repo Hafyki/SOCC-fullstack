@@ -41,14 +41,12 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
-    public User findUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-
-        if (user == null) {
+    public List<User> findUsersByUsername(String username) {
+        List<User> users = userRepository.findByUsernameStartingWith(username);
+        if (users.isEmpty()) {
             throw new EntityNotFoundException("User with username: " + username + " not found");
         }
-
-        return user;
+        return users;
     }
 
     public User updateUser(UUID id, UserUpdateRequestDTO userRequest) {
