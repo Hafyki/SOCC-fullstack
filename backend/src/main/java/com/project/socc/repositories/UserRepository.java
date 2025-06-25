@@ -11,5 +11,5 @@ import com.project.socc.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
-    Page<User> findByUserNameContainingIgnoreCase(String username, Pageable pageable);
+    Page<User> findByUsernameContainingIgnoreCase(String username, Pageable pageable);
 }

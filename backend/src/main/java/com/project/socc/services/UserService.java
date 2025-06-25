@@ -43,8 +43,8 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
-    public Page<User> findUsersByUserName(String username, Pageable pageable) {
-        return userRepository.findByUserNameContainingIgnoreCase(username, pageable);
+    public Page<User> findUsersByUsername(String username, Pageable pageable) {
+        return userRepository.findByUsernameContainingIgnoreCase(username, pageable);
     }
 
 
