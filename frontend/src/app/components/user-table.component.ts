@@ -38,15 +38,15 @@ export class UserTableComponent implements OnInit {
   profileOptions = [
     { label: 'Administrador', value: 'ADMINISTRATOR' },
     { label: 'Coordenador de Curso', value: 'COURSE_COORDINATOR' },
-    { label: 'Assistente de Coordenação', value: 'ASSISTANT_COURSE_COORDINATOR' },
+    { label: 'Vice-Coordenador de Curso', value: 'ASSISTANT_COURSE_COORDINATOR' },
     { label: 'Professor', value: 'PROFESSOR' },
     { label: 'Secretário Acadêmico', value: 'ACADEMIC_SECRETARY' },
-    { label: 'Equipe Técnico-Pedagógica', value: 'TECHNICAL_PEDAGOGICAL_STAFF' },
+    { label: 'Técnico-Pedagógico', value: 'TECHNICAL_PEDAGOGICAL_STAFF' },
     { label: 'Estudante', value: 'STUDENT' },
     { label: 'Curador Pedagógico', value: 'PEDAGOGICAL_CURATOR' },
     { label: 'Diretor', value: 'DIRECTOR' },
     { label: 'Vice-Diretor', value: 'DEPUTY_DIRECTOR' },
-    { label: 'Membro do Conselho', value: 'BOARD_MEMBER' }
+    { label: 'Membro do Conselho Diretor', value: 'BOARD_MEMBER' }
   ];
 
   // Mapeamento correto dos IDs baseado no DataSeeder
@@ -246,17 +246,17 @@ export class UserTableComponent implements OnInit {
 
   private getProfileDescription(role: string): string {
     const descriptionMap: { [key: string]: string } = {
-      'ADMINISTRATOR': 'Administrador do sistema com todos os acessos',
+      'ADMINISTRATOR': 'Administrador',
       'COURSE_COORDINATOR': 'Coordenador de curso',
-      'ASSISTANT_COURSE_COORDINATOR': 'Coordenador assistente de curso',
-      'PROFESSOR': 'Professor da instituição',
+      'ASSISTANT_COURSE_COORDINATOR': 'Vice-coordenador de curso',
+      'PROFESSOR': 'Professor',
       'ACADEMIC_SECRETARY': 'Secretário acadêmico',
-      'TECHNICAL_PEDAGOGICAL_STAFF': 'Equipe técnico-pedagógica',
-      'STUDENT': 'Estudante da instituição',
+      'TECHNICAL_PEDAGOGICAL_STAFF': 'Técnico-pedagógico',
+      'STUDENT': 'Estudante',
       'PEDAGOGICAL_CURATOR': 'Curador pedagógico',
-      'DIRECTOR': 'Diretor da instituição',
-      'DEPUTY_DIRECTOR': 'Vice-diretor da instituição',
-      'BOARD_MEMBER': 'Membro do conselho'
+      'DIRECTOR': 'Diretor',
+      'DEPUTY_DIRECTOR': 'Vice-diretor',
+      'BOARD_MEMBER': 'Membro do conselho diretor'
     };
     return descriptionMap[role] || role;
   }
@@ -293,5 +293,17 @@ export class UserTableComponent implements OnInit {
   // Cálculo do CH Total
   getTotalWorkload(): number {
     return this.users.reduce((total, user) => total + (user.workload || 0), 0);
+  }
+
+  // Método para texto da paginação
+  getPaginationText(): string {
+    if (this.totalElements === 0) {
+      return '0 de 0';
+    }
+
+    const start = (this.currentPage * this.pageSize) + 1;
+    const end = Math.min((this.currentPage + 1) * this.pageSize, this.totalElements);
+
+    return `${start}-${end} de ${this.totalElements}`;
   }
 }
