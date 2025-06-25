@@ -1,21 +1,19 @@
 package com.project.socc.services;
 
-import java.util.List;
-import java.util.UUID;
-
+import com.project.socc.dtos.UserUpdateRequestDTO;
+import com.project.socc.entities.Profile;
+import com.project.socc.entities.User;
+import com.project.socc.enums.UserStatus;
+import com.project.socc.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.socc.dtos.UserUpdateRequestDTO;
-import com.project.socc.entities.Profile;
-import com.project.socc.entities.User;
-import com.project.socc.enums.UserStatus;
-import com.project.socc.repositories.UserRepository;
-
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.UUID;
 
 @Transactional
 @Service
@@ -43,10 +41,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
-    public Page<User> findUsersByUsername(String username, Pageable pageable) {
-        return userRepository.findByUsernameContainingIgnoreCase(username, pageable);
+    public List<User> findUsersByUsername(String username) {
+        List<User> users = userRepository.findByUsernameStartingWith(username);
+        if (users.isEmpty()) {
+            throw new EntityNotFoundException("User with username: " + username + " not found");
+        }
+        return users;
     }
-
 
     public User updateUser(UUID id, UserUpdateRequestDTO userRequest) {
 

@@ -10,12 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -73,25 +73,25 @@ public class UserController {
     }
 
     /**
-     * GET ONE BY ID
+     * GET USER BY ID
      */
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable UUID id) {
+    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
         User user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }
 
     /**
-     * GET ALL BY USERNAME
+     * GET USER BY USERNAME
      */
 
     @GetMapping("/search")
-    public ResponseEntity<Page<User>> findUsersByUsername(
-        @RequestParam String username,
-        @PageableDefault(size = 10, sort = "username") Pageable pageable) {
-        Page<User> page = userService.findUsersByUsername(username, pageable);
-        return ResponseEntity.ok(page);
+    public ResponseEntity<List<User>> getUsersByUsername(
+            @RequestParam String username
+    ) {
+        List<User> users = userService.findUsersByUsername(username);
+        return ResponseEntity.ok(users);
     }
 
     /**
